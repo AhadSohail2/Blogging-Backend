@@ -1,3 +1,4 @@
+const Mongoose = require("mongoose");
 const categoryModel = require("../../models/category");
 
 exports.postCategory = async (req, res, next) => {
@@ -36,3 +37,17 @@ exports.getCategories = async (req, res, next) => {
     }
 }
 
+exports.getCategory = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        if (!id) {
+            const error = new Error("Enter Valid ID");
+            error.statusCode = 401;
+        }
+        const ObjectId = Mongoose.Types.ObjectId(id)
+        const category = await categoryModel.findById(ObjectId);
+        res.json({ message: "Record Fetched", data: category });
+    } catch (err) {
+        next(err)
+    }
+}
