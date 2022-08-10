@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 //Routes Import
 const adminRoutes = require('./routes/admin/admin');
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 //Routes
-app.use(adminRoutes);
+app.use("/admin", adminRoutes);
 
 //Error Middleware
 
@@ -33,4 +34,13 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
-app.listen(8080)
+
+mongoose.connect('mongodb://localhost:27017/blogsEnclave')
+    .then(() => {
+        app.listen(8080)
+    })
+    .catch(
+        (err) => {
+            console.log(err)
+        }
+    )
