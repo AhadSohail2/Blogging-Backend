@@ -22,6 +22,15 @@ app.use((req, res, next) => {
 });
 
 //Routes
-app.use(adminRoutes)
+app.use(adminRoutes);
+
+//Error Middleware
+
+app.use((error, req, res, next) => {
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({ message: message, data: data });
+});
 
 app.listen(8080)
