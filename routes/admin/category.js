@@ -9,5 +9,7 @@ router.get('/categories',CategoryController.getCategories)
 
 router.get('/category',CategoryController.getCategory)
 
+router.delete('/category/:id',CategoryController.deleteCategory)
+
 
 module.exports = router;

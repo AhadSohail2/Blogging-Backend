@@ -51,3 +51,18 @@ exports.getCategory = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.deleteCategory = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        if (!id) {
+            const error = new Error("Enter Valid ID");
+            error.statusCode = 401;
+        }
+        const ObjectId = Mongoose.Types.ObjectId(id)
+        await categoryModel.findByIdAndDelete(ObjectId);
+        res.json({ message: "Record Deleted" });
+    } catch (err) {
+        next(err)
+    }
+}
