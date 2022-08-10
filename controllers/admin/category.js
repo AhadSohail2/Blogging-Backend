@@ -23,3 +23,16 @@ exports.postCategory = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.getCategories = async (req, res, next) => {
+    try {
+        const categories = await categoryModel.find();
+        res.json({
+            message: "Categories Fetched",
+            data: categories
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
