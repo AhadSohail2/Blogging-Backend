@@ -66,3 +66,22 @@ exports.deleteCategory = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.putCategory = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        const name = req.body.name;
+        if (!id || !name) {
+            const error = new Error("Enter Valid ID  Or Name");
+            error.statusCode = 401;
+            throw error;
+        }
+        const ObjectId = Mongoose.Types.ObjectId(id)
+        const category = await categoryModel.findById(ObjectId);
+        category.name=name;
+        await category.save();
+        res.json({ message: "Record Updated" });
+    } catch (err) {
+        next(err)
+    }
+}

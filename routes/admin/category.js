@@ -11,5 +11,7 @@ router.get('/category',CategoryController.getCategory)
 
 router.delete('/category/:id',CategoryController.deleteCategory)
 
+router.put('/category',CategoryController.putCategory)
+
 
 module.exports = router;
